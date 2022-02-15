@@ -33,13 +33,6 @@ jobs:
       - name: Removes yarn lock to force dependencies installation using npm
         run: rm yarn.lock
 
-      # - name: Get Personal access token
-      #   id: get_workflow_token
-      #   uses: peter-murray/workflow-application-token-action@v1
-      #   with:
-      #     application_id: ${{ secrets.APPLICATION_ID }}
-      #     application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
         with:
@@ -66,6 +59,16 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@iazlabs'
+      - name: Check npm version
+        run: npm -v
+
+      - name: Removes yarn lock to force dependencies installation using npm
+        run: rm yarn.lock
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
