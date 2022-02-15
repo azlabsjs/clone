@@ -26,11 +26,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
+        run: npm -v
 
       - name: Install deps and build (with cache)
+        run: rm yarn.lock
         uses: bahmutov/npm-install@v1
-        with:
-          useYarn: false
 
       - name: Lint
         run: yarn lint
