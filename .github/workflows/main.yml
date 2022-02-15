@@ -20,6 +20,8 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install deps and build (with cache)
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_READ_TOKEN}}
         uses: bahmutov/npm-install@v1
 
       - name: Lint
@@ -30,5 +32,3 @@ jobs:
 
       - name: Build
         run: yarn build
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_READ_TOKEN}}
