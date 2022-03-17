@@ -23,7 +23,7 @@ copy.address.coord.set('lat', '2.867429');
 copy.emails = ['azlabs@gmail.com'];
 ```
 
-## clone()
+## `clone()`
 
 > Create a decomposed copy of {lat: 3.08942, long: 1.8942}
 
@@ -35,7 +35,7 @@ reference.lat = 3.068131;
 value.lat = 3.4267831;
 ```
 
-## cloneDeep()
+## `cloneDeep()`
 
 > use the provided shallow clone function
 
