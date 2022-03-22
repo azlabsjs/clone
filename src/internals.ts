@@ -28,6 +28,6 @@ export const cloneBuffer = (value: Buffer) => {
   return buf;
 };
 
-export const cloneSymbol = (value: Symbol) => {
+export const cloneSymbol = (value: symbol) => {
   return valueOf ? Object(valueOf.call(value)) : {};
 };
