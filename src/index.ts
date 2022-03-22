@@ -7,13 +7,13 @@ import {
   cloneTypedArray,
 } from './internals';
 
-const cloneObjectDeep = (value: any, clonefunc?: Function) => {
+const cloneObjectDeep = <T extends object>(value: T, clonefunc?: (value: T) => T) => {
   if (typeof clonefunc === 'function') {
     return clonefunc(value);
   }
   if (clonefunc || isPlainObject(value)) {
-    const res = new value.constructor();
-    for (let key in value) {
+    const res = new (value as any).constructor();
+    for (const key in value) {
       res[key] = cloneDeep(value[key], clonefunc);
     }
     return res;
@@ -21,8 +21,11 @@ const cloneObjectDeep = (value: any, clonefunc?: Function) => {
   return value;
 };
 
-const cloneArrayDeep = (value: any, clonefunc?: Function) => {
-  const res = new value.constructor(value.length);
+const cloneArrayDeep = <T extends any[] = any>(
+  value: T,
+  clonefunc?: (value: T) => T
+) => {
+  const res = new (value as any).constructor(value.length);
   for (let i = 0; i < value.length; i++) {
     res[i] = cloneDeep(value[i], clonefunc);
   }
@@ -67,14 +70,14 @@ export const clone = (value: any) => {
   }
 };
 
-export const cloneDeep = <T>(value: T, clonefunc?: Function) => {
+export function cloneDeep<T>(value: T, clonefunc?: (value: T) => T): T {
   switch (typeOf(value)) {
     case 'object':
-      return cloneObjectDeep(value, clonefunc) as T;
+      return cloneObjectDeep(value as any, clonefunc as any);
     case 'array':
-      return cloneArrayDeep(value, clonefunc) as T;
+      return cloneArrayDeep(value as any, clonefunc as any);
     default: {
-      return clone(value) as T;
+      return clone(value);
     }
   }
-};
+}

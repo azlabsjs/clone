@@ -42,7 +42,7 @@ describe('clone utilities function', () => {
         country: 'TOGO',
       },
     };
-    const value = cloneDeep(object, (value: Object) => {
+    const value = cloneDeep(object, (value) => {
       return { ...value };
     });
     value.lat = 3.89018;
