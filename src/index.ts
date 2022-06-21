@@ -1,4 +1,4 @@
-import { isPlainObject, typeOf } from '@iazlabs/utilities';
+import { isPlainObject, typeOf } from '@azlabsjs/utilities';
 import {
   cloneArrayBuffer,
   cloneBuffer,
