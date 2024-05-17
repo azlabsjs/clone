@@ -3,6 +3,7 @@
   "name": "@azlabsjs/clone",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "typings": "dist/types/index.d.ts",
   "files": [
     "dist/**/*"
@@ -32,9 +33,14 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/cjs/index.cjs"
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
     }
   },
   "author": "azandrew-sidoine",
@@ -50,10 +56,8 @@
     }
   ],
   "devDependencies": {
-    "@azlabsjs/ts-build": "^0.1.16",
-    "@betterer/cli": "^5.1.6",
-    "@betterer/typescript": "^5.1.6",
-    "@size-limit/preset-small-lib": "^7.0.8",
+    "@azlabsjs/ts-build": "^0.4.21",
+    "@size-limit/preset-small-lib": "^11.1.4",
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
@@ -70,7 +74,7 @@
     "registry": "https://npm.pkg.github.com/@azlabsjs"
   },
   "dependencies": {
-    "@azlabsjs/utilities": "^0.1.7"
+    "@azlabsjs/utilities": "^0.2.0"
   },
   "repository": {
     "type": "git",
