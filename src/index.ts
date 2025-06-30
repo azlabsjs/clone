@@ -5,14 +5,15 @@ import {
   cloneRegExp,
   cloneSymbol,
   cloneTypedArray,
+  UnknownType,
 } from './internals';
 
-const cloneObjectDeep = <T extends object>(value: T, clonefunc?: (value: T) => T) => {
+const cloneObjectDeep = <T>(value: T, clonefunc?: (value: T) => T) => {
   if (typeof clonefunc === 'function') {
     return clonefunc(value);
   }
   if (clonefunc || isPlainObject(value)) {
-    const res = new (value as any).constructor();
+    const res = new (value as UnknownType).constructor();
     for (const key in value) {
       res[key] = cloneDeep(value[key], clonefunc);
     }
@@ -21,18 +22,18 @@ const cloneObjectDeep = <T extends object>(value: T, clonefunc?: (value: T) => T
   return value;
 };
 
-const cloneArrayDeep = <T extends any[] = any>(
+const cloneArrayDeep = <T extends UnknownType[]>(
   value: T,
   clonefunc?: (value: T) => T
 ) => {
-  const res = new (value as any).constructor(value.length);
+  const res = new (value as UnknownType).constructor(value.length);
   for (let i = 0; i < value.length; i++) {
     res[i] = cloneDeep(value[i], clonefunc);
   }
   return res;
 };
 
-export const clone = (value: any) => {
+export const clone = (value: UnknownType) => {
   switch (typeOf(value)) {
     case 'array':
       return value.slice();
@@ -73,9 +74,9 @@ export const clone = (value: any) => {
 export function cloneDeep<T>(value: T, clonefunc?: (value: T) => T): T {
   switch (typeOf(value)) {
     case 'object':
-      return cloneObjectDeep(value as any, clonefunc as any);
+      return cloneObjectDeep(value, clonefunc);
     case 'array':
-      return cloneArrayDeep(value as any, clonefunc as any);
+      return cloneArrayDeep(value as UnknownType, clonefunc);
     default: {
       return clone(value);
     }
